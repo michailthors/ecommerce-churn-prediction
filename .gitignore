@@ -1,0 +1,4 @@
+csv/
+data/events_clean.csv
+__pycache__/
+*.pyc
