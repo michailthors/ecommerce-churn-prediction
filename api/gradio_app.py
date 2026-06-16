@@ -7,6 +7,7 @@ threshold = joblib.load('models/saved/best_threshold.pkl')
 
 def predict(num_views, added_to_cart, session_duration_min, 
             total_items_viewed, hour_of_day, day_of_week):
+    added_to_cart = 1 if added_to_cart == "Yes" else 0
     
     features = np.array([[num_views, added_to_cart, session_duration_min,
                           total_items_viewed, hour_of_day, day_of_week]])
@@ -21,7 +22,7 @@ demo = gr.Interface(
     fn=predict,
     inputs=[
         gr.Number(label="Number of Views"),
-        gr.Radio([0, 1], label="Added to Cart"),
+        gr.Radio(["No", "Yes"], label="Added to Cart"),
         gr.Number(label="Session Duration (minutes)"),
         gr.Number(label="Total Items Viewed"),
         gr.Slider(0, 23, step=1, label="Hour of Day"),
