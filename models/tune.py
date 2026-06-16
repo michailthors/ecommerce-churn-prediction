@@ -53,36 +53,3 @@ print("\nBest params saved!")
 
 ################################################################################
 
-from sklearn.metrics import classification_report
-from sklearn.metrics import precision_recall_curve
-
-# Train τελικό model με best params
-final_model = XGBClassifier(
-    **study.best_params,
-    scale_pos_weight=scale,
-    random_state=42,
-    n_jobs=-1,
-    eval_metric='auc'
-)
-
-final_model.fit(X_train, y_train)
-
-y_prob_final = final_model.predict_proba(X_test)[:, 1]
-
-# Threshold tuning
-precisions, recalls, thresholds = precision_recall_curve(y_test, y_prob_final)
-f1_scores = 2 * (precisions * recalls) / (precisions + recalls + 1e-8)
-best_idx = np.argmax(f1_scores)
-best_threshold = thresholds[best_idx]
-
-y_pred_final = (y_prob_final >= best_threshold).astype(int)
-
-print("\n=== FINAL MODEL ===")
-print(f"Best threshold: {best_threshold:.4f}")
-print(classification_report(y_test, y_pred_final))
-print(f"ROC-AUC: {roc_auc_score(y_test, y_prob_final):.4f}")
-
-# Αποθήκευση
-joblib.dump(final_model, 'models/saved/final_model.pkl')
-joblib.dump(best_threshold, 'models/saved/best_threshold.pkl')
-print("\nFinal model saved!")
