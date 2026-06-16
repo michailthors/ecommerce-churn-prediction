@@ -1,4 +1,6 @@
 csv/
 data/events_clean.csv
+models/saved/
+mlruns/
 __pycache__/
 *.pyc
