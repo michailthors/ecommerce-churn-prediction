@@ -20,4 +20,4 @@ for name, df in tables.items():
     print(f"Columns: {list(df.columns)}")
     print(df.head(3))
 
-    print(events['event'].value_counts())
+print(events['event'].value_counts())
