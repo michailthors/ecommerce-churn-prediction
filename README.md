@@ -48,3 +48,9 @@ docker build -t ecommerce-prediction .
 docker run -p 8000:8000 ecommerce-prediction
 ```
 4. Open `http://127.0.0.1:8000/docs` for the API or run `python api/gradio_app.py` for the UI
+
+
+
+## Demo
+![Gradio UI](screenshots/positive_buy.png)
+![Gradio UI](screenshots/negative_buy.png)
